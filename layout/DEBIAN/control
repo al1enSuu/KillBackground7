@@ -1,7 +1,7 @@
-Package: com.MathieuBolard.KillBackground
-Name: KillBackground
+Package: com.kindadev.KillBackground7
+Name: KillBackground7
 Depends: mobilesubstrate, firmware (>= 4.0), preferenceloader
-Version: 1.2.3
+Version: 0.1
 Architecture: iphoneos-arm
 Description: Kill background apps with style !
 Maintainer: Mathieu Bolard (mattlawer) <mattlawer08@gmail.com>
