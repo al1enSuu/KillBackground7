@@ -43,12 +43,6 @@ static void PreferencesChangedCallback(CFNotificationCenterRef center, void *obs
 
 %hook SBAppSliderController
 
-- (void)sliderScroller:(id)arg1 itemTapped:(unsigned int)arg2
-{
-	%log;
-	%orig;
-}
-
 - (void)switcherWasPresented:(BOOL)arg1
 {
 	%orig;
