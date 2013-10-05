@@ -9,6 +9,7 @@
 			<string>PSGroupCell</string>
 			<key>label</key>
 			<string>KillBackground</string>
+		</dict>
 		<dict>
 			<key>cell</key>
 			<string>PSSwitchCell</string>
