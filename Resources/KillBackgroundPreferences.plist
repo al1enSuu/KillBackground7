@@ -9,9 +9,6 @@
 			<string>PSGroupCell</string>
 			<key>label</key>
 			<string>KillBackground</string>
-			<key>footerText</key>
-			<string>Disable this if you want to hide the button when the icons are not in wiggle mode.</string>
-		</dict>
 		<dict>
 			<key>cell</key>
 			<string>PSSwitchCell</string>
@@ -23,20 +20,6 @@
 			<string>Left</string>
 			<key>label</key>
 			<string>Button on the left :</string>
-			<key>PostNotification</key>
-			<string>com.mathieubolard.killbackground.prefs</string>
-		</dict>
-		<dict>
-			<key>cell</key>
-			<string>PSSwitchCell</string>
-			<key>default</key>
-			<false/>
-			<key>defaults</key>
-			<string>com.mathieubolard.killbackgroundpreferences</string>
-			<key>key</key>
-			<string>AlwaysVisible</string>
-			<key>label</key>
-			<string>Always Visible :</string>
 			<key>PostNotification</key>
 			<string>com.mathieubolard.killbackground.prefs</string>
 		</dict>

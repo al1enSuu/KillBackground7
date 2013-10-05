@@ -49,24 +49,20 @@ static void PreferencesChangedCallback(CFNotificationCenterRef center, void *obs
 
 	// MSHookIvar
 	// UIView *contentView = MSHookIvar<UIView *>(self, "_contentView");
-    UIView *containerView;
-    object_getInstanceVariable(self, "_containerView", (void**)&containerView);
+	UIView *containerView;
+	object_getInstanceVariable(self, "_containerView", (void**)&containerView);
 
 	[self clearSwitcherBar:containerView];
-
-    BOOL alwaysVisible = [[preferences objectForKey:@"AlwaysVisible"] boolValue];
-    
-	if (alwaysVisible) {
-		BOOL bigButtons = [[preferences objectForKey:@"BigButtons"] boolValue];
-		// Add button
-        if (bigButtons) {
-            [self showBigButtonsInView:containerView];
-        } else {
-            BOOL isLeft = [[preferences objectForKey:@"Left"] boolValue];
-		    CGSize barSize = containerView.frame.size;
-		    UIButton *btn = [self killButtonInFrame:barSize isLeft:isLeft];
-		    [containerView addSubview:btn];
-        }
+	
+	BOOL bigButtons = [[preferences objectForKey:@"BigButtons"] boolValue];
+	// Add button
+	if (bigButtons) {
+		[self showBigButtonsInView:containerView];
+	} else {
+		BOOL isLeft = [[preferences objectForKey:@"Left"] boolValue];
+		CGSize barSize = containerView.frame.size;
+		UIButton *btn = [self killButtonInFrame:barSize isLeft:isLeft];
+		[containerView addSubview:btn];
 	}
 }
 
@@ -75,11 +71,11 @@ static void PreferencesChangedCallback(CFNotificationCenterRef center, void *obs
 {
 	[self killBackgroundAppsFromSlider:(SBAppSliderController *)self applicationList:self.applicationList];
 
-    BOOL autoHide = [[preferences objectForKey:@"AutoHide"] boolValue];
-    if (autoHide) {
+	BOOL autoHide = [[preferences objectForKey:@"AutoHide"] boolValue];
+	if (autoHide) {
 		[self forceDismissAnimated:YES];
 		// [self sliderScroller:(SBAppSliderController *)self itemTapped:0];
-    }
+	}
 }
 
 %new(v@:@@)
@@ -89,7 +85,7 @@ static void PreferencesChangedCallback(CFNotificationCenterRef center, void *obs
 	UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
 	btn.autoresizingMask = isLeft ? (UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleTopMargin) : (UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin);
 	[btn setImage:[UIImage imageWithContentsOfFile:@"/System/Library/CoreServices/SpringBoard.app/Kill-Badge.png"] forState:UIControlStateNormal];
-    btn.frame = isLeft ? CGRectMake(0.0, frame.height-31.0, 29.0, 31.0) : CGRectMake(frame.width-29.0, frame.height-31.0, 29.0, 31.0);
+	btn.frame = isLeft ? CGRectMake(0.0, frame.height-31.0, 29.0, 31.0) : CGRectMake(frame.width-29.0, frame.height-31.0, 29.0, 31.0);
 	[btn addTarget:self action:@selector(killApps) forControlEvents:UIControlEventTouchUpInside];
 	return btn;
 }
@@ -97,20 +93,20 @@ static void PreferencesChangedCallback(CFNotificationCenterRef center, void *obs
 %new(v@:@@)
 - (void)showBigButtonsInView:(UIView *)view
 {
-    CGSize frame = view.frame.size;
-    UIButton *leftBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    leftBtn.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleTopMargin;
-    [leftBtn setImage:[UIImage imageWithContentsOfFile:@"/System/Library/CoreServices/SpringBoard.app/Kill-Left.png"] forState:UIControlStateNormal];
-    leftBtn.frame = CGRectMake(0.0, frame.height-40.0, 40.0, 40.0);
+	CGSize frame = view.frame.size;
+	UIButton *leftBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+	leftBtn.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleTopMargin;
+	[leftBtn setImage:[UIImage imageWithContentsOfFile:@"/System/Library/CoreServices/SpringBoard.app/Kill-Left.png"] forState:UIControlStateNormal];
+	leftBtn.frame = CGRectMake(0.0, frame.height-40.0, 40.0, 40.0);
 	[leftBtn addTarget:self action:@selector(killApps) forControlEvents:UIControlEventTouchUpInside];
-    [view addSubview:leftBtn];
-    
-    UIButton *rightBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    rightBtn.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin;
-    [rightBtn setImage:[UIImage imageWithContentsOfFile:@"/System/Library/CoreServices/SpringBoard.app/Kill-Right.png"] forState:UIControlStateNormal];
-    rightBtn.frame = CGRectMake(frame.width-40.0, frame.height-40.0, 40.0, 40.0);
+	[view addSubview:leftBtn];
+	
+	UIButton *rightBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+	rightBtn.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin;
+	[rightBtn setImage:[UIImage imageWithContentsOfFile:@"/System/Library/CoreServices/SpringBoard.app/Kill-Right.png"] forState:UIControlStateNormal];
+	rightBtn.frame = CGRectMake(frame.width-40.0, frame.height-40.0, 40.0, 40.0);
 	[rightBtn addTarget:self action:@selector(killApps) forControlEvents:UIControlEventTouchUpInside];
-    [view addSubview:rightBtn];
+	[view addSubview:rightBtn];
 }
 
 %new(v@:@@)
@@ -121,12 +117,12 @@ static void PreferencesChangedCallback(CFNotificationCenterRef center, void *obs
 	SBMediaController *mediaController = [[%c(SBMediaController) sharedInstance] init];
 	BOOL isPlaying = [mediaController isPlaying];
 
-    NSString *playingID = @"";
-    SBApplication *nowPlayingApplication = [mediaController nowPlayingApplication];
-    playingID = [nowPlayingApplication bundleIdentifier];
+	NSString *playingID = @"";
+	SBApplication *nowPlayingApplication = [mediaController nowPlayingApplication];
+	playingID = [nowPlayingApplication bundleIdentifier];
 
-    BOOL shouldKillMusic = NO;
-    int count = 0;
+	BOOL shouldKillMusic = NO;
+	int count = 0;
 	for (id application in applications) {
 		if ([application isEqualToString:@"com.apple.springboard"]) continue;
 		else if (!killMusic && isPlaying && [application isEqualToString:playingID]) {
@@ -150,21 +146,21 @@ static void PreferencesChangedCallback(CFNotificationCenterRef center, void *obs
 - (void)clearSwitcherBar:(UIView *)containerView
 {
 	for (id subview in [containerView subviews]) {
-        if ([subview isKindOfClass:[UIButton class]]) {
-    		[subview removeFromSuperview];
-    	}
-    }
+		if ([subview isKindOfClass:[UIButton class]]) {
+			[subview removeFromSuperview];
+		}
+	}
 }
 %end
 
 __attribute__((constructor)) static void killbackground_init() {
-    
-    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+	
+	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 	
 	%init;
-    preferences = [[NSDictionary alloc] initWithContentsOfFile:PreferencesFilePath];
+	preferences = [[NSDictionary alloc] initWithContentsOfFile:PreferencesFilePath];
 	CFNotificationCenterAddObserver(CFNotificationCenterGetDarwinNotifyCenter(), NULL, PreferencesChangedCallback, CFSTR(PreferencesChangedNotification), NULL, CFNotificationSuspensionBehaviorCoalesce);
-    
+	
 	[pool release];
-    
+	
 }
