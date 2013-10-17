@@ -47,11 +47,7 @@ static void PreferencesChangedCallback(CFNotificationCenterRef center, void *obs
 {
 	%orig;
 
-	// MSHookIvar
-	// UIView *contentView = MSHookIvar<UIView *>(self, "_contentView");
-	UIView *containerView;
-	object_getInstanceVariable(self, "_containerView", (void**)&containerView);
-
+	UIView *containerView = MSHookIvar<UIView *>(self, "_containerView");
 	[self clearSwitcherBar:containerView];
 	
 	BOOL bigButtons = [[preferences objectForKey:@"BigButtons"] boolValue];
@@ -64,6 +60,14 @@ static void PreferencesChangedCallback(CFNotificationCenterRef center, void *obs
 		UIButton *btn = [self killButtonInFrame:barSize isLeft:isLeft];
 		[containerView addSubview:btn];
 	}
+}
+
+-(void)sliderScroller:(id)scroller itemTapped:(unsigned)tapped
+{
+	UIView *containerView = MSHookIvar<UIView *>(self, "_containerView");
+	[self clearSwitcherBar:containerView];
+
+	%orig;
 }
 
 %new(v@:)
@@ -127,12 +131,10 @@ static void PreferencesChangedCallback(CFNotificationCenterRef center, void *obs
 		if ([application isEqualToString:@"com.apple.springboard"]) continue;
 		else if (!killMusic && isPlaying && [application isEqualToString:playingID]) {
 			shouldKillMusic = YES;
-		}
-		else {
+		} else {
 			if (!shouldKillMusic) {
 				[sliderController _quitAppAtIndex:1];
-			}
-			else {
+			} else {
 				if (count+1 < applications.count) {
 					[sliderController _quitAppAtIndex:2];
 				}
@@ -155,12 +157,9 @@ static void PreferencesChangedCallback(CFNotificationCenterRef center, void *obs
 
 __attribute__((constructor)) static void killbackground_init() {
 	
-	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-	
-	%init;
-	preferences = [[NSDictionary alloc] initWithContentsOfFile:PreferencesFilePath];
-	CFNotificationCenterAddObserver(CFNotificationCenterGetDarwinNotifyCenter(), NULL, PreferencesChangedCallback, CFSTR(PreferencesChangedNotification), NULL, CFNotificationSuspensionBehaviorCoalesce);
-	
-	[pool release];
-	
+	@autoreleasepool {
+		%init;
+		preferences = [[NSDictionary alloc] initWithContentsOfFile:PreferencesFilePath];
+		CFNotificationCenterAddObserver(CFNotificationCenterGetDarwinNotifyCenter(), NULL, PreferencesChangedCallback, CFSTR(PreferencesChangedNotification), NULL, CFNotificationSuspensionBehaviorCoalesce);
+	}
 }

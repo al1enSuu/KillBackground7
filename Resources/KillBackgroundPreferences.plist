@@ -8,7 +8,7 @@
 			<key>cell</key>
 			<string>PSGroupCell</string>
 			<key>label</key>
-			<string>KillBackground</string>
+			<string>KillBackground7</string>
 		</dict>
 		<dict>
 			<key>cell</key>
@@ -74,23 +74,8 @@
 			<key>PostNotification</key>
 			<string>com.mathieubolard.killbackground.prefs</string>
 		</dict>
-		<dict>
-			<key>cell</key>
-			<string>PSGroupCell</string>
-			<key>footerText</key>
-			<string>Copyright © 2011 Mathieu Bolard 
-(@mattlawer)</string>
-		</dict>
-		<dict>
-			<key>cell</key>
-			<string>PSButtonCell</string>
-			<key>label</key>
-			<string>💰 Donate 💰</string>
-			<key>action</key>
-			<string>donate:</string>
-		</dict>
 	</array>
 	<key>title</key>
-	<string>KillBackground</string>
+	<string>KillBackground7</string>
 </dict>
 </plist>

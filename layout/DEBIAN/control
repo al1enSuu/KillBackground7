@@ -1,6 +1,6 @@
 Package: com.kindadev.KillBackground7
 Name: KillBackground7
-Depends: mobilesubstrate, firmware (>= 4.0), preferenceloader
+Depends: mobilesubstrate, firmware (>= 6.0), preferenceloader
 Version: 0.1
 Architecture: iphoneos-arm
 Description: Kill background apps with style !

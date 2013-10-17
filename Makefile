@@ -1,5 +1,5 @@
-THEOS_DEVICE_IP = 192.168.1.106
-TARGET = iphone:clang::5.0
+THEOS_DEVICE_IP = 192.168.1.103
+TARGET = iphone:clang::7.0
 
 include theos/makefiles/common.mk
 
@@ -27,3 +27,4 @@ real-clean:
 	rm -rf obj
 	rm -rf .theos
 	rm -rf *.deb
+	
