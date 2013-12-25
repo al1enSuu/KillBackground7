@@ -75,11 +75,7 @@ static void PreferencesChangedCallback(CFNotificationCenterRef center, void *obs
 {
 	[self killBackgroundAppsFromSlider:(SBAppSliderController *)self applicationList:self.applicationList];
 
-	BOOL autoHide = [[preferences objectForKey:@"AutoHide"] boolValue];
-	if (autoHide) {
-		[self forceDismissAnimated:YES];
-		// [self sliderScroller:(SBAppSliderController *)self itemTapped:0];
-	}
+	[self forceDismissAnimated:YES];
 }
 
 %new(v@:@@)
