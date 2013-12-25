@@ -1,14 +1,8 @@
-<<<<<<< HEAD
 THEOS_DEVICE_IP = 192.168.1.109
 
 TARGET = iphone:clang::7.0
 export TARGET_IPHONEOS_DEPLOYMENT_VERSION_arm64 = 7.0
 export ARCHS = armv7 arm64
-=======
-THEOS_DEVICE_IP = 192.168.1.103
-TARGET = iphone:clang::7.0
->>>>>>> da00eb087403549219dd48941c81a3b571b19a0a
-
 include theos/makefiles/common.mk
 
 TWEAK_NAME = KillBackground7
@@ -36,10 +30,6 @@ real-clean:
 	rm -rf obj
 	rm -rf .theos
 	rm -rf *.deb
-<<<<<<< HEAD
 
 after-install::
 	install.exec "killall -9 SpringBoard"
-=======
-	
->>>>>>> da00eb087403549219dd48941c81a3b571b19a0a
