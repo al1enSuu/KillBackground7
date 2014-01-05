@@ -32,7 +32,6 @@ static void PreferencesChangedCallback(CFNotificationCenterRef center, void *obs
 
 @interface SBMediaController
 + (id)sharedInstance;
-- (id)init;
 - (id)nowPlayingApplication;
 - (BOOL)isPlaying;
 @end
@@ -114,7 +113,7 @@ static void PreferencesChangedCallback(CFNotificationCenterRef center, void *obs
 {
 	BOOL killMusic = [[preferences objectForKey:@"KillMusic"] boolValue];
 
-	SBMediaController *mediaController = [[%c(SBMediaController) sharedInstance] init];
+	SBMediaController *mediaController = [%c(SBMediaController) sharedInstance];
 	BOOL isPlaying = [mediaController isPlaying];
 
 	NSString *playingID = @"";
